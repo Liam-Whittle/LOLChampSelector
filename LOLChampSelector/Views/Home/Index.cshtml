@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@model LOLChampSelector.Models.ChampInfo
+
+<div class="text-center">
+    <h1 class="display-4">League of Legends</h1>
+    <h3>Champ Info Selector</h3>
+    <label for="champs">Choose a Champ:</label>
+    @Html.DropDownListFor(m => m.Name, ViewBag.ChampionList as SelectList, new {
+        @id = "ddlitem",
+        @onchange = "dropDownChange();"
+})
+</div>
+
+<div style="border: double; border-color: lightgray; border-radius: 2px; border-width: thin; margin-left: 150px; margin-right: 150px; text-align: center;  margin-top: 38px;">
+    @foreach (var item in ViewBag.champdata)
+    {
+        if (item.ID == "aatrox" ) //get seleceted champ id from dropdown
+        {
+            <img id="icon" src="@item.Icon" alt="Default" width="120" height="120" style=" margin-top: 1rem; border-radius: 7px; border: inherit;">
+        }
+    }
+
+    <hr style="width: 748px;" />
+
+    <div style="text-align: center; margin-bottom: 18px; margin-top: 26px; margin-left: 110px; margin-right: 110px;">
+        @foreach (var item in ViewBag.champdata)
+        {
+            if (item.ID == "aatrox") //get seleceted champ id from dropdown
+            {
+                <h5>Name:</h5> <p id="namePara" style="text-align:center"> @item.Name </p>
+                <h5>Title:</h5> <p id="titlePara" style="text-align:center">@item.Title</p>
+                <h5>Bio:</h5> <p id="bioPara" style="text-align:center">@item.Desc</p>
+            }
+        }
+    </div>
+</div>
+
+
+<script>
+    function dropDownChange() {
+        var selectedItem = $("#ddlitem option:selected").val();
+        alert("selected item", selectedItem);
+    }
+</script>
